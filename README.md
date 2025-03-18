@@ -1,3 +1,40 @@
+# FinanTex Clone
+
+Đây là một dự án clone giao diện của FinanTex, một nền tảng giao dịch tiền điện tử.
+
+## Cài đặt
+
+```bash
+npm install
+npm start
+```
+
+## Hình ảnh cần thiết
+
+Để trang web hiển thị đúng, bạn cần thêm các hình ảnh sau vào thư mục `public/`:
+
+1. `finantex-logo.png` - Logo FinanTex (đặt trực tiếp trong thư mục public)
+2. `images/crypto-phone-chart.png` - Hình ảnh điện thoại hiển thị biểu đồ giao dịch
+
+### Hướng dẫn thêm logo
+
+1. Tải logo FinanTex từ trang web chính thức hoặc từ nguồn bạn có
+2. Đổi tên file thành `finantex-logo.png`
+3. Đặt file vào thư mục `public/` của dự án
+
+## Cấu trúc dự án
+
+- `src/components/Navbar.jsx` - Component thanh điều hướng với logo
+- `src/components/HeroSection.jsx` - Component phần hero với nội dung chính và hình ảnh
+- `src/styles.css` - File CSS tùy chỉnh
+- `src/App.js` - Component chính của ứng dụng
+
+## Công nghệ sử dụng
+
+- React
+- Bootstrap
+- React Bootstrap
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
