@@ -456,51 +456,100 @@ body {
 
 @media (max-width: 768px) {
   .steps-section {
-    padding: 4rem 0;
+    padding: 3rem 0;
+    position: relative;
   }
   
-  .steps-section h2 {
-    font-size: 1.8rem;
+  .steps-section .container {
+    max-width: 100%;
+    padding: 0 1.5rem;
+  }
+  
+  .steps-icons-container {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  
+  .steps-section .icon-box {
+    width: 80px;
+    height: 80px;
+    background: #a067ff;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+  }
+  
+  .steps-section .icon-box img {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .connector-line {
+    display: none;
+  }
+  
+  .step-number {
+    color: #f39c12;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    margin-top: 0.75rem;
   }
   
   .steps-section h4 {
-    font-size: 1.3rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    text-align: center;
+  }
+  
+  .steps-text-container .col-md-3 {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  .steps-section .small {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+    max-width: 300px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .steps-icons-container > div {
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 576px) {  
+  .steps-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .steps-section .icon-box {
+    width: 70px;
+    height: 70px;
+    border-radius: 15px;
+  }
+  
+  .steps-section .icon-box img {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .steps-section h4 {
+    font-size: 1.1rem;
   }
   
   .steps-section .small {
     font-size: 0.75rem;
-  }
-  
-  .connector-line svg {
-    width: 60px;
-  }
-}
-
-@media (max-width: 576px) {
-  .steps-section {
-    padding: 3rem 0;
-  }
-  
-  .steps-section h4 {
-    font-size: 1rem;
-  }
-  
-  .steps-section .small {
-    font-size: 0.7rem;
-  }
-  
-  .steps-section .icon-box img {
-    width: 60px;
-    height: 60px;
-  }
-  
-  .connector-line svg {
-    width: 40px;
-  }
-  
-  .steps-section .mx-4 {
-    margin-left: 0.5rem !important;
-    margin-right: 0.5rem !important;
   }
 }
 
