@@ -1,13 +1,12 @@
 import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { useAuth } from '../contexts/AuthContext';
 
 const TradingSection = () => {
   const { openLoginModal } = useAuth();
   
   return (
-    <section className="trading-section py-5" style={{ backgroundColor: '#000000' }}>
+    <section className="trading-section py-5">
       <Container className="position-relative">
         {/* Gold coin image */}
         <div className="gold-coin-container">

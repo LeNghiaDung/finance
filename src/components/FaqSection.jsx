@@ -39,7 +39,7 @@ const FaqSection = () => {
   };
 
   return (
-    <section className="faq-section py-5" style={{ backgroundColor: '#000000' }}>
+    <section className="faq-section py-5">
       <Container>
         <div className="text-center mb-5">
           <p className="text-warning mb-2">FAQS</p>

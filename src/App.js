@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
+import './App.scss';
 import Navigation from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import FeatureSection from './components/FeatureSection';
@@ -12,6 +12,7 @@ import Footer from './components/Footer';
 import LoginModal from './components/LoginModal';
 import SignupModal from './components/SignupModal';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { useEffect } from "react";
 
 const AppContent = () => {
   const { 
@@ -54,6 +55,9 @@ function App() {
       <AppContent />
     </AuthProvider>
   );
+  useEffect(() => {
+    document.title = "Finance Dashboard";
+  }, []);
 }
 
 export default App;

@@ -3,7 +3,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: #0e0e0e;
-  color: white;
+  color: rgb(250, 250, 250);
   font-family: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -146,50 +146,5 @@ body {
     width: 80px;
     bottom: 0;
     left: 0;
-  }
-}
-
-/* Prevent horizontal scrollbar */
-html, body, #root {
-  overflow-x: hidden;
-  max-width: 100%;
-  position: relative;
-}
-
-/* Fix for any container that might cause horizontal scrollbar */
-*, *::before, *::after {
-  box-sizing: border-box;
-}
-
-/* Fix for screens smaller than 768px */
-@media (max-width: 768px) {
-  .container, .container-fluid {
-    padding-right: 15px;
-    padding-left: 15px;
-    width: 100% !important;
-    max-width: 100% !important;
-    overflow-x: hidden;
-  }
-  
-  .row {
-    margin-right: 0;
-    margin-left: 0;
-  }
-  
-  img {
-    max-width: 100%;
-    height: auto;
-  }
-  
-  /* Remove any fixed width that might cause overflow */
-  div[style*="width"], div[style*="max-width"] {
-    width: auto !important;
-    max-width: 100% !important;
-  }
-  
-  /* Ensure text doesn't overflow */
-  p, h1, h2, h3, h4, h5, h6, a, span, li {
-    word-wrap: break-word;
-    overflow-wrap: break-word;
   }
 }
