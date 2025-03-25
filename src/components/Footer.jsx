@@ -8,6 +8,7 @@ const Footer = () => {
   const [showLanguages, setShowLanguages] = useState(false)
   const [selectedLanguage, setSelectedLanguage] = useState({ code: "vn", name: "Tiếng Việt" })
   const languageRef = useRef(null)
+  const dropdownRef = useRef(null)
 
   const languages = [
     { code: "us", name: "Tiếng Anh" },
@@ -29,6 +30,20 @@ const Footer = () => {
     setSelectedLanguage(language)
     setShowLanguages(false)
   }
+
+  // Xử lý vị trí dropdown
+  useEffect(() => {
+    if (showLanguages && languageRef.current && dropdownRef.current) {
+      const buttonRect = languageRef.current.getBoundingClientRect()
+      const dropdownHeight = dropdownRef.current.offsetHeight
+
+      // Đặt vị trí dropdown phía trên nút
+      dropdownRef.current.style.position = "fixed"
+      dropdownRef.current.style.bottom = `calc(100vh - ${buttonRect.top}px)`
+      dropdownRef.current.style.left = `${buttonRect.left}px`
+      dropdownRef.current.style.width = `${buttonRect.width}px`
+    }
+  }, [showLanguages])
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -94,35 +109,37 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Language Selector - Completely rewritten */}
+          {/* Language Selector */}
           <div className="custom-language-selector" ref={languageRef}>
-            <div className="custom-language-button" onClick={toggleLanguageDropdown}>
+            <button className="custom-language-button" onClick={toggleLanguageDropdown} type="button">
               <span className="language-code">{selectedLanguage.code.toUpperCase()}</span>
               {selectedLanguage.name}
               <span className="language-arrow">
-                {showLanguages ? <FaChevronUp size={8} /> : <FaChevronDown size={8} />}
+                {showLanguages ? <FaChevronUp size={10} /> : <FaChevronDown size={10} />}
               </span>
-            </div>
+            </button>
 
-            <div className={`custom-language-dropdown ${showLanguages ? "show" : ""}`}>
-              <div className="custom-language-list">
-                {languages.map((language) => (
-                  <div
-                    key={language.code}
-                    className={`custom-language-item ${selectedLanguage.code === language.code ? "active" : ""}`}
-                    onClick={() => selectLanguage(language)}
-                  >
-                    <span className="language-code">{language.code.toUpperCase()}</span> {language.name}
-                  </div>
-                ))}
+            {showLanguages && (
+              <div className="custom-language-dropdown" ref={dropdownRef}>
+                <div className="custom-language-list">
+                  {languages.map((language) => (
+                    <div
+                      key={language.code}
+                      className={`custom-language-item ${selectedLanguage.code === language.code ? "active" : ""}`}
+                      onClick={() => selectLanguage(language)}
+                    >
+                      <span className="language-code">{language.code.toUpperCase()}</span> {language.name}
+                    </div>
+                  ))}
+                </div>
+                <div className="custom-language-selected">
+                  <span className="language-code">{selectedLanguage.code.toUpperCase()}</span> {selectedLanguage.name}
+                  <span className="language-arrow">
+                    <FaChevronUp size={10} />
+                  </span>
+                </div>
               </div>
-              <div className="custom-language-selected">
-                <span className="language-code">{selectedLanguage.code.toUpperCase()}</span> {selectedLanguage.name}
-                <span className="language-arrow">
-                  <FaChevronUp size={8} />
-                </span>
-              </div>
-            </div>
+            )}
           </div>
         </div>
 
