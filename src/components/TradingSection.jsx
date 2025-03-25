@@ -1,10 +1,10 @@
-import React from 'react';
-import { Container, Row, Col, Button } from 'react-bootstrap';
-import { useAuth } from '../contexts/AuthContext';
+"use client"
+import { Container, Row, Col, Button } from "react-bootstrap"
+import { useAuth } from "../contexts/AuthContext"
 
 const TradingSection = () => {
-  const { openLoginModal } = useAuth();
-  
+  const { openLoginModal } = useAuth()
+
   return (
     <section className="trading-section py-5">
       <Container className="position-relative">
@@ -12,10 +12,10 @@ const TradingSection = () => {
         <div className="gold-coin-container">
           <img src="./finan-coin (1).png" alt="Gold Coin" className="gold-coin-trading" />
         </div>
-        
+
         {/* Horizontal divider */}
         <div className="divider"></div>
-        
+
         <Row>
           {/* Tablet image - always visible first */}
           <Col xs={12}>
@@ -23,10 +23,10 @@ const TradingSection = () => {
               <img src="/tablet.png" alt="Trading Chart" className="trading-device-image" />
             </div>
           </Col>
-          
+
           {/* Content centered below */}
           <Col xs={12}>
-            <div className="trading-content-container text-center">
+            <div className="trading-content-container">
               <h2 className="mb-3">
                 <span className="text-warning">Mọi nơi</span>
                 <span className="text-white"> bạn muốn.</span>
@@ -46,7 +46,8 @@ const TradingSection = () => {
         </Row>
       </Container>
     </section>
-  );
-};
+  )
+}
 
-export default TradingSection;
+export default TradingSection
+
