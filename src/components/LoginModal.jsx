@@ -1,75 +1,103 @@
-import React from 'react';
-import { Modal, Form, Button } from 'react-bootstrap';
-import { FaTimes } from 'react-icons/fa';
+"use client"
+import { useState, useEffect } from "react"
+import { FaTimes, FaEye, FaEyeSlash } from "react-icons/fa"
 
 const LoginModal = ({ show, handleClose, handleShowSignup }) => {
-  return (
-    <Modal 
-      show={show} 
-      onHide={handleClose}
-      contentClassName="login-modal-content"
-      dialogClassName={`login-modal-dialog ${show ? 'show' : ''}`}
-    >
-      <Modal.Body className="p-0">
-        <div className="login-modal-container">
-          <div className="login-modal-header">
-            <div className="login-modal-logo">
-              <img src="/finantex-logo.png" alt="FinanTex Logo" />
-            </div>
-            <button className="login-modal-close" onClick={handleClose}>
-              <FaTimes />
-            </button>
-          </div>
-          
-          <div className="login-modal-body">
-            <h2 className="login-modal-title">Đăng nhập vào Tài khoản của bạn</h2>
-            
-            <Form className="login-form">
-              <Form.Group className="mb-3">
-                <Form.Label>Địa chỉ Email <span className="text-danger">*</span></Form.Label>
-                <Form.Control 
-                  type="email" 
-                  placeholder="Điền Email..." 
-                  className="login-form-input"
-                />
-              </Form.Group>
-              
-              <Form.Group className="mb-4">
-                <Form.Label>Mật khẩu <span className="text-danger">*</span></Form.Label>
-                <Form.Control 
-                  type="password" 
-                  placeholder="Điền mật khẩu..." 
-                  className="login-form-input"
-                />
-              </Form.Group>
-              
-              <Button variant="warning" className="login-submit-btn w-100" type="submit">
-                Đăng nhập
-              </Button>
-              
-              <div className="login-options mt-3">
-                <div className="login-remember">
-                  <Button 
-                    variant="link" 
-                    className="login-forgot-link p-0 text-start"
-                    onClick={handleShowSignup}
-                  >
-                    Cần tài khoản?
-                  </Button>
-                </div>
-                <Button 
-                  variant="link" 
-                  className="login-forgot-link"
-                >
-                  Không nhớ mật khẩu?
-                </Button>
-              </div>
-            </Form>
-          </div>
-        </div>
-      </Modal.Body>
-    </Modal>
-  );
-};
+  const [showPassword, setShowPassword] = useState(false)
 
-export default LoginModal; 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword)
+  }
+
+  // Ngăn cuộn trang khi modal hiển thị
+  useEffect(() => {
+    if (show) {
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = ""
+    }
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [show])
+
+  return (
+    <div className={`login-dialog ${show ? "show" : ""}`} role="dialog" aria-modal="true">
+      <div className="login-dialog-content">
+        <div className="login-dialog-header">
+          <div className="login-dialog-logo">
+            <img src="/finantex-logo.png" alt="FinanTex Logo" />
+          </div>
+          <button className="login-dialog-close" onClick={handleClose}>
+            <FaTimes />
+          </button>
+        </div>
+
+        <div className="login-dialog-body">
+          <h2 className="login-dialog-title">Đăng nhập vào Tài khoản của bạn</h2>
+
+          <form className="login-form">
+            <div className="login-form-group">
+              <label className="login-form-label">
+                Địa chỉ Email <span className="required">*</span>
+              </label>
+              <input type="email" placeholder="Điền Email..." className="login-form-input login-form-input-special" />
+            </div>
+
+            <div className="login-form-group">
+              <label className="login-form-label">
+                Mật khẩu <span className="required">*</span>
+              </label>
+              <div className="login-password-toggle">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Điền mật khẩu..."
+                  className="login-form-input"
+                />
+                <span className="password-toggle-icon" onClick={togglePasswordVisibility}>
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </span>
+              </div>
+            </div>
+
+            <div className="login-forgot-password">
+              <a href="#" className="login-forgot-link">
+                Quên mật khẩu?
+              </a>
+            </div>
+
+            <button type="submit" className="login-submit-btn">
+              Đăng nhập
+            </button>
+
+            <div className="login-footer">
+              <div className="login-register">
+                <span>Cần tài khoản FinanTex? </span>
+                <a
+                  href="#"
+                  className="login-register-link"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    handleShowSignup()
+                  }}
+                >
+                  Đăng ký
+                </a>
+              </div>
+
+              <div className="login-confirmation">
+                <span>Không nhận được email xác nhận? </span>
+                <a href="#" className="login-confirmation-link">
+                  Yêu cầu một email mới.
+                </a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default LoginModal
+

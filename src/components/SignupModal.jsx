@@ -1,93 +1,118 @@
-import React from 'react';
-import { Modal, Form, Button } from 'react-bootstrap';
-import { FaTimes } from 'react-icons/fa';
+"use client"
+import { useState, useEffect } from "react"
+import { FaTimes, FaEye, FaEyeSlash } from "react-icons/fa"
 
 const SignupModal = ({ show, handleClose, handleShowLogin }) => {
-  return (
-    <Modal 
-      show={show} 
-      onHide={handleClose}
-      contentClassName="login-modal-content"
-      dialogClassName={`login-modal-dialog ${show ? 'show' : ''}`}
-    >
-      <Modal.Body className="p-0">
-        <div className="login-modal-container">
-          <div className="login-modal-header">
-            <div className="login-modal-logo">
-              <img src="/finantex-logo.png" alt="FinanTex Logo" />
-            </div>
-            <button className="login-modal-close" onClick={handleClose}>
-              <FaTimes />
-            </button>
-          </div>
-          
-          <div className="login-modal-body">
-            <h2 className="login-modal-title">Đăng ký Tài khoản</h2>
-            
-            <Form className="login-form">
-              <Form.Group className="mb-3">
-                <Form.Label>Họ tên <span className="text-danger">*</span></Form.Label>
-                <Form.Control 
-                  type="text" 
-                  placeholder="Nhập họ tên..." 
-                  className="login-form-input"
-                />
-              </Form.Group>
-              
-              <Form.Group className="mb-3">
-                <Form.Label>Địa chỉ Email <span className="text-danger">*</span></Form.Label>
-                <Form.Control 
-                  type="email" 
-                  placeholder="Nhập Email..." 
-                  className="login-form-input"
-                />
-              </Form.Group>
-              
-              <Form.Group className="mb-3">
-                <Form.Label>Mật khẩu <span className="text-danger">*</span></Form.Label>
-                <Form.Control 
-                  type="password" 
-                  placeholder="Tạo mật khẩu..." 
-                  className="login-form-input"
-                />
-              </Form.Group>
-              
-              <Form.Group className="mb-4">
-                <Form.Label>Xác nhận mật khẩu <span className="text-danger">*</span></Form.Label>
-                <Form.Control 
-                  type="password" 
-                  placeholder="Nhập lại mật khẩu..." 
-                  className="login-form-input"
-                />
-              </Form.Group>
-              
-              <Button variant="warning" className="login-submit-btn w-100" type="submit">
-                Đăng ký
-              </Button>
-              
-              <div className="login-options mt-3">
-                <div className="login-remember">
-                  <Form.Check 
-                    type="checkbox" 
-                    id="agree-terms"
-                    label="Tôi đồng ý với điều khoản sử dụng" 
-                    className="login-check-text"
-                  />
-                </div>
-                <Button 
-                  variant="link" 
-                  className="login-forgot-link"
-                  onClick={handleShowLogin}
-                >
-                  Đã có tài khoản?
-                </Button>
-              </div>
-            </Form>
-          </div>
-        </div>
-      </Modal.Body>
-    </Modal>
-  );
-};
+  const [showPassword, setShowPassword] = useState(false)
 
-export default SignupModal; 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword)
+  }
+
+  // Ngăn cuộn trang khi modal hiển thị
+  useEffect(() => {
+    if (show) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [show])
+
+  return (
+    <div 
+      className={`signup-dialog ${show ? 'show' : ''}`}
+      role="dialog"
+      aria-modal="true"
+    >
+      <div className="signup-dialog-content">
+        <div className="signup-dialog-header">
+          <div className="signup-dialog-logo">
+            <img src="/finantex-logo.png" alt="FinanTex Logo" />
+          </div>
+          <button className="signup-dialog-close" onClick={handleClose}>
+            <FaTimes />
+          </button>
+        </div>
+        
+        <div className="signup-dialog-body">
+          <h2 className="signup-dialog-title">Tạo tài khoản FinanTex</h2>
+          
+          <form className="signup-form">
+            <div className="signup-form-group">
+              <label className="signup-form-label">
+                Địa chỉ Email <span className="required">*</span>
+              </label>
+              <input 
+                type="email" 
+                placeholder="Điền Email..." 
+                className="signup-form-input signup-form-input-special"
+              />
+            </div>
+            
+            <div className="signup-form-group">
+              <label className="signup-form-label">
+                Biệt danh <span className="required">*</span>
+              </label>
+              <input 
+                type="text" 
+                placeholder="Điền Nickname..." 
+                className="signup-form-input"
+              />
+            </div>
+            
+            <div className="signup-form-group">
+              <label className="signup-form-label">
+                Mật khẩu <span className="required">*</span>
+              </label>
+              <div className="signup-password-toggle">
+                <input 
+                  type={showPassword ? "text" : "password"} 
+                  placeholder="Điền mật khẩu..." 
+                  className="signup-form-input"
+                />
+                <span 
+                  className="password-toggle-icon" 
+                  onClick={togglePasswordVisibility}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </span>
+              </div>
+            </div>
+            
+            <div className="signup-form-group">
+              <label className="signup-form-label">Mã giới thiệu</label>
+              <input 
+                type="text" 
+                placeholder="Điền Mã giới thiệu..." 
+                className="signup-form-input"
+              />
+            </div>
+            
+            <button type="submit" className="signup-submit-btn">
+              Đăng ký
+            </button>
+            
+            <div className="signup-footer">
+              <span>Có tài khoản FinanTex? </span>
+              <a 
+                href="#" 
+                className="signup-login-link"
+                onClick={(e) => {
+                  e.preventDefault()
+                  handleShowLogin()
+                }}
+              >
+                Đăng nhập vào Tài khoản của bạn
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default SignupModal
