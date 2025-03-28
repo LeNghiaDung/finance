@@ -1,4 +1,3 @@
-"use client"
 
 import { useState } from "react"
 import { Container } from "react-bootstrap"
@@ -35,7 +34,6 @@ const FaqSection = () => {
         "FinanTex cung cấp nhiều cách để kiếm tiền, bao gồm: giao dịch tùy chọn nhị phân, giao dịch tiền điện tử, chương trình tiếp thị liên kết, nhận thưởng khi giới thiệu bạn bè, và các chương trình khuyến mãi định kỳ. Mỗi cách đều có tiềm năng lợi nhuận riêng tùy thuộc vào kỹ năng và chiến lược của người dùng.",
     },
   ]
-
   // Toggle mở/đóng câu hỏi
   const toggleFaq = (index) => {
     if (openFaq === index) {
@@ -65,7 +63,7 @@ const FaqSection = () => {
                     toggleFaq(index)
                   }}
                 >
-                  {openFaq === index ? "×" : "+"}
+                  <span className="toggle-icon">{openFaq === index ? "×" : "+"}</span>
                 </button>
               </div>
               <div className={`faq-answer ${openFaq === index ? "show" : ""}`}>
@@ -80,6 +78,5 @@ const FaqSection = () => {
     </section>
   )
 }
-
 export default FaqSection
 

@@ -1,29 +1,46 @@
-"use client"
+
 import { useState, useEffect } from "react"
 import { FaTimes, FaEye, FaEyeSlash } from "react-icons/fa"
+import { useAuth } from "../contexts/AuthContext"
 
-const SignupModal = ({ show, handleClose, handleShowLogin }) => {
+const SignupModal = () => {
+  const { signupModalOpen, closeSignupModal, openLoginModal } = useAuth()
   const [showPassword, setShowPassword] = useState(false)
+  const [animateContent, setAnimateContent] = useState(false)
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword)
   }
 
-  // Ngăn cuộn trang khi modal hiển thị
+  // Prevent scrolling when modal is open
   useEffect(() => {
-    if (show) {
-      document.body.style.overflow = 'hidden'
+    if (signupModalOpen) {
+      document.body.style.overflow = "hidden"
+      // Delay the content animation slightly for a better effect
+      setTimeout(() => {
+        setAnimateContent(true)
+      }, 100)
     } else {
-      document.body.style.overflow = ''
+      document.body.style.overflow = ""
+      setAnimateContent(false)
     }
     return () => {
-      document.body.style.overflow = ''
+      document.body.style.overflow = ""
     }
-  }, [show])
+  }, [signupModalOpen])
+
+  const handleShowLogin = (e) => {
+    if (e) e.preventDefault()
+    openLoginModal()
+  }
+
+  if (!signupModalOpen) return null
 
   return (
+    <>
+    <div className={`modal-backdrop ${signupModalOpen ? "show" : ""}`}></div>
     <div 
-      className={`signup-dialog ${show ? 'show' : ''}`}
+      className={`signup-dialog ${signupModalOpen ? 'show' : ''}`}
       role="dialog"
       aria-modal="true"
     >
@@ -32,7 +49,7 @@ const SignupModal = ({ show, handleClose, handleShowLogin }) => {
           <div className="signup-dialog-logo">
             <img src="/finantex-logo.png" alt="FinanTex Logo" />
           </div>
-          <button className="signup-dialog-close" onClick={handleClose}>
+          <button className="signup-dialog-close" onClick={closeSignupModal}>
             <FaTimes />
           </button>
         </div>
@@ -111,7 +128,8 @@ const SignupModal = ({ show, handleClose, handleShowLogin }) => {
           </form>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   )
 }
 

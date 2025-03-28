@@ -1,9 +1,10 @@
-"use client"
+
 import { Container, Row, Col, Button } from "react-bootstrap"
 import { useAuth } from "../contexts/AuthContext"
 
 const FeatureSection = () => {
   const { openLoginModal } = useAuth()
+
   return (
     <section className="feature-section py-5">
       <Container>
@@ -12,7 +13,7 @@ const FeatureSection = () => {
             <div className="feature-image-container">
               <img src="/mockup-tablet-phone.png" alt="Trading Features" className="feature-image" />
             </div>
-          </Col>
+          </Col> 
           <Col lg={6} className="order-lg-2 order-2">
             <h2 className="feature-title">Các chỉ báo giao dịch giúp khách hàng kiếm được nhiều tiền hơn</h2>
             <p className="feature-description">
@@ -25,7 +26,7 @@ const FeatureSection = () => {
           </Col>
         </Row>
       </Container>
-    </section>
+    </section>    
   )
 }
 

@@ -1,39 +1,56 @@
-import React, { createContext, useState, useContext } from 'react';
+"use client"
+import { createContext, useContext, useState } from "react"
 
-const AuthContext = createContext(null);
+const AuthContext = createContext()
 
 export const AuthProvider = ({ children }) => {
-  const [showLoginModal, setShowLoginModal] = useState(false);
-  const [showSignupModal, setShowSignupModal] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [loginModalOpen, setLoginModalOpen] = useState(false)
+  const [signupModalOpen, setSignupModalOpen] = useState(false)
 
   const openLoginModal = () => {
-    setShowLoginModal(true);
-    setShowSignupModal(false);
-  };
+    setLoginModalOpen(true)
+    setSignupModalOpen(false)
+  }
+
+  const closeLoginModal = () => {
+    setLoginModalOpen(false)
+  }
 
   const openSignupModal = () => {
-    setShowSignupModal(true);
-    setShowLoginModal(false);
-  };
+    setSignupModalOpen(true)
+    setLoginModalOpen(false)
+  }
 
-  const closeAllModals = () => {
-    setShowLoginModal(false);
-    setShowSignupModal(false);
-  };
+  const closeSignupModal = () => {
+    setSignupModalOpen(false)
+  }
 
-  return (
-    <AuthContext.Provider 
-      value={{ 
-        showLoginModal, 
-        showSignupModal, 
-        openLoginModal, 
-        openSignupModal, 
-        closeAllModals 
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
-};
+  const login = () => {
+    setIsLoggedIn(true)
+    closeLoginModal()
+  }
 
-export const useAuth = () => useContext(AuthContext); 
+  const logout = () => {
+    setIsLoggedIn(false)
+  }
+
+  const value = {
+    isLoggedIn,
+    loginModalOpen,
+    signupModalOpen,
+    openLoginModal,
+    closeLoginModal,
+    openSignupModal,
+    closeSignupModal,
+    login,
+    logout,
+  }
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+}
+
+export const useAuth = () => {
+  return useContext(AuthContext)
+}
+
